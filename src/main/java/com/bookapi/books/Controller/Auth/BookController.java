@@ -61,7 +61,7 @@ public class BookController {
                 bookRepo.delete(book);
                 return new response(200, "deleted succesfully", book);
             }
-            return new response(404, "book not found", null);
+            return new response(404, "book already deleted", null);
 
         }
         @GetMapping("/books")
