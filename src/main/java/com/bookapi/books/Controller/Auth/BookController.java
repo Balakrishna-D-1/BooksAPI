@@ -9,6 +9,7 @@ import java.util.UUID;
 import com.bookapi.books.response;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -52,6 +53,20 @@ public class BookController {
             }
             return new response(404, "book not found", null);
 
+        }
+    @PostMapping("/deleteb")
+        public response dodeleteBooks(@RequestBody AddBooks books) {
+            if(bookRepo.existsById(books.getId())) {
+                AddBooks book = bookRepo.findById(books.getId()).get();
+                bookRepo.delete(book);
+                return new response(200, "deleted succesfully", book);
+            }
+            return new response(404, "book not found", null);
+
+        }
+        @GetMapping("/books")
+        List<AddBooks> all() {
+            return bookRepo.findAll();
         }
 
 
